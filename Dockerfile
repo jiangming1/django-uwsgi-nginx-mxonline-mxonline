@@ -28,6 +28,11 @@ RUN apt-get update && \
 	python3-pip \
 	nginx \
 	supervisor \
+    libmysqlclient-dev \
+    vim \
+	inetutils-ping\
+	net-tools\
+    apt-get install libssl-dev \
 	sqlite3 && \
 	pip3 install -U pip setuptools && \
    rm -rf /var/lib/apt/lists/*
