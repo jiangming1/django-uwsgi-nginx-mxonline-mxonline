@@ -17,7 +17,7 @@ FROM ubuntu:16.04
 MAINTAINER Dockerfiles
 
 # Install required packages and remove the apt packages cache when done.
-
+COPY source.list /etc/apt/
 RUN apt-get update && \
     apt-get upgrade -y && \ 	
     apt-get install -y \
@@ -34,11 +34,11 @@ RUN apt-get update && \
 	net-tools\
     apt-get install libssl-dev \
 	sqlite3 && \
-	pip3 install -U pip setuptools && \
+	pip3 install -i http://mirrors.aliyun.com/pypi/simple -U pip setuptools && \
    rm -rf /var/lib/apt/lists/*
 
-# install uwsgi now because it takes a little while
-RUN pip3 install uwsgi
+# install doango and uwsgi now because it takes a little while
+RUN pip3 install -i http://mirrors.aliyun.com/pypi/simple -r requirements.txt
 
 # setup all the configfiles
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf

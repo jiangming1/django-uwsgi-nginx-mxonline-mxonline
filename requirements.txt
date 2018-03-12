@@ -29,4 +29,5 @@ django-pure-pagination
 django-ranged-response
 django-reversion
 django-simple-captcha
-DjangoUeditor
+# DjangoUeditor 要手动安装
+uwsgi
