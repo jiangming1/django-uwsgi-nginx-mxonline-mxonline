@@ -16,6 +16,13 @@ django-reversion (2.0.13)
 django-simple-captcha (0.5.6)
 DjangoUeditor (1.8.143)
 
+#### 做了哪些更改
+1. 更换了apt-get 的源，使用阿里云的源
+2. 更换了pip的源， 使用职权里云的源
+3. 使用了第三的python源，安装了python3.6.3版本
+4. 安装了所有慕学online项目所要使用的django包
+5. 去掉了之前对python2的支持
+
 #### 使用方法
 1. 安装docker
    [win10 pro上安装docker参考这个文章](https://m690.com/archives/1141/)
@@ -30,8 +37,9 @@ DjangoUeditor (1.8.143)
 4. 运行Docker run
     ```
     # C:\git\MxOnline是你慕学online项目的目录
-   docker run --name mxonline -v C:\git\MxOnline:/home/docker/code/app -p 80:80 mxonline
+   docker run -d --name mxonline -v C:\git\MxOnline:/home/docker/code/app -p 80:80 mxonline
    ```
+5. 直接访问 http://127.0.0.1 来查看项目是否跑得正常，如果有问题，可以在/var/log/supervisor/目录中查看相关日志
 
 # Django, uWSGI and Nginx in a container, using Supervisord
 [link](https://github.com/dockerfiles/django-uwsgi-nginx)
