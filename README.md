@@ -1,4 +1,5 @@
 ## django-uwsgi-nginx-mxonline django-uwsgi-nginx for MxOnline
+源项目地址[ link ](https://github.com/dockerfiles/django-uwsgi-nginx)
 #### 目的 
 这个dockerfile是我为了练习“慕学online”(MxOnline)这个项目，而更改的。使用这个dockerfile 可以方便的build一个docker来运行“慕学online”项目.里面基本把项目中要使用的django模块都安装上了。pip 默认安装的DjangoUeditor无法运行python3上，这个问题也解决掉了。
 #### 系统及软件版本（只支持python3)
@@ -39,7 +40,7 @@ DjangoUeditor (1.8.143)
     # C:\git\MxOnline是你慕学online项目的目录
    docker run -d --name mxonline -v C:\git\MxOnline:/home/docker/code/app -p 80:80 mxonline
    ```
-5. 直接访问 http://127.0.0.1 来查看项目是否跑得正常，如果有问题，可以在/var/log/supervisor/目录中查看相关日志
+5. 直接访问 http://127.0.0.1 来查看项目是否跑得正常，如果有问题，可以在/var/log/supervisor/目录中查看相关uswgi的日志
 
 # Django, uWSGI and Nginx in a container, using Supervisord
 [link](https://github.com/dockerfiles/django-uwsgi-nginx)
