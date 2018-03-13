@@ -14,31 +14,28 @@
 
 FROM ubuntu:16.04
 
-MAINTAINER Dockerfiles
+MAINTAINER w8833531
 
 # Install required packages and remove the apt packages cache when done.
-COPY source.list /etc/apt/
+RUN mv /etc/apt/sources.list /etc/apt/sources.list.org
+COPY sources.list /etc/apt/
 RUN apt-get update && \
     apt-get upgrade -y && \ 	
     apt-get install -y \
 	git \
-	python3 \
-	python3-dev \
-	python3-setuptools \
-	python3-pip \
 	nginx \
 	supervisor \
     libmysqlclient-dev \
     vim \
 	inetutils-ping\
 	net-tools\
-    apt-get install libssl-dev \
+    libssl-dev \
+	software-properties-common \
 	sqlite3 && \
-	pip3 install -i http://mirrors.aliyun.com/pypi/simple -U pip setuptools && \
-   rm -rf /var/lib/apt/lists/*
+	rm -rf /var/lib/apt/lists/*
+	 
+    
 
-# install doango and uwsgi now because it takes a little while
-RUN pip3 install -i http://mirrors.aliyun.com/pypi/simple -r requirements.txt
 
 # setup all the configfiles
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
@@ -47,16 +44,28 @@ COPY supervisor-app.conf /etc/supervisor/conf.d/
 
 # COPY requirements.txt and RUN pip install BEFORE adding the rest of your code, this will cause Docker's caching mechanism
 # to prevent re-installing (all your) dependencies when you made a change a line or two in your app.
-
-COPY app/requirements.txt /home/docker/code/app/
-RUN pip3 install -r /home/docker/code/app/requirements.txt
-
 # add (the rest of) our code
 COPY . /home/docker/code/
 
+# install python3.6 and django and uwsgi 
+RUN add-apt-repository -y ppa:jonathonf/python-3.6 && \
+	apt-get update && \
+	export DEBIAN_FRONTEND=noninteractive && \
+	apt-get install -y python3.6 python3.6-dev python3-pip
+RUN python3.6 -m pip install --trusted-host mirrors.aliyun.com -i http://mirrors.aliyun.com/pypi/simple --upgrade pip && \ 
+	export LANG=C.UTF-8; python3.6 -m pip install --trusted-host mirrors.aliyun.com -i http://mirrors.aliyun.com/pypi/simple -r /home/docker/code/requirements.txt
+
+# install DjangoUeditor
+RUN cd /tmp && \
+	git clone https://github.com/twz915/DjangoUeditor3 && \
+	cd DjangoUeditor3 && \
+	python3.6 setup.py install && \
+	rm -rf /tmp/DjangoUeditor3
+
+
 # install django, normally you would remove this step because your project would already
 # be installed in the code/app/ directory
-RUN django-admin.py startproject website /home/docker/code/app/
+# RUN django-admin.py startproject website /home/docker/code/app/
 
 EXPOSE 80
 CMD ["supervisord", "-n"]

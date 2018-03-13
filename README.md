@@ -1,5 +1,40 @@
-# Django, uWSGI and Nginx in a container, using Supervisord
+## django-uwsgi-nginx-mxonline django-uwsgi-nginx for MxOnline
+#### 目的 
+这个dockerfile是我为了练习“慕学online”(MxOnline)这个项目，而更改的。使用这个dockerfile 可以方便的build一个docker来运行“慕学online”项目.里面基本把项目中要使用的django模块都安装上了。pip 默认安装的DjangoUeditor无法运行python3上，这个问题也解决掉了。
+#### 系统及软件版本（只支持python3)
+ubuntu 16.04
+python 3.6.3
+pip 9.0.1
+uwsgi 2.0.17
+django 1.11.6
+django-crispy-forms (1.7.2)
+django-formtools (2.1)
+django-import-export (1.0.0)
+django-pure-pagination (0.3.0)
+django-ranged-response (0.2.0)
+django-reversion (2.0.13)
+django-simple-captcha (0.5.6)
+DjangoUeditor (1.8.143)
 
+#### 使用方法
+1. 安装docker
+   [win10 pro上安装docker参考这个文章](https://m690.com/archives/1141/)
+2. git clone 这个项目
+    ```
+   git clone https://github.com/w8833531/django-uwsgi-nginx-mxonline-mxonline.git
+   ``` 
+3. 运行Docker build 
+    ```
+    docker build mxonline .
+    ```
+4. 运行Docker run
+    ```
+    # C:\git\MxOnline是你慕学online项目的目录
+   docker run --name mxonline -v C:\git\MxOnline:/home/docker/code/app -p 80:80 mxonline
+   ```
+
+# Django, uWSGI and Nginx in a container, using Supervisord
+[link](https://github.com/dockerfiles/django-uwsgi-nginx)
 This Dockerfile shows you *how* to build a Docker container with a fairly standard
 and speedy setup for Django with uWSGI and Nginx.
 

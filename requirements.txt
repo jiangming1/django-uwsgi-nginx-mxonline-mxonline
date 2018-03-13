@@ -21,7 +21,7 @@ wrapt
 xlrd
 xlwt
 zope.interface
-Django
+django==1.11.6
 django-crispy-forms
 django-formtools
 django-import-export
@@ -29,5 +29,4 @@ django-pure-pagination
 django-ranged-response
 django-reversion
 django-simple-captcha
-# DjangoUeditor 要手动安装
 uwsgi
