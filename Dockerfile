@@ -14,7 +14,7 @@
 
 FROM ubuntu:16.04
 
-MAINTAINER w8833531
+LABEL maintainer="w8833531 at hotmail.com"
 
 # ENV setting 
 ENV LANG=C.UTF-8  TZ=Asia/Shanghai
