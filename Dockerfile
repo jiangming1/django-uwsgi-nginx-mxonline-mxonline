@@ -16,6 +16,9 @@ FROM ubuntu:16.04
 
 MAINTAINER w8833531
 
+# ENV setting 
+ENV LANG=C.UTF-8  TZ=Asia/Shanghai
+
 # Install required packages and remove the apt packages cache when done.
 RUN mv /etc/apt/sources.list /etc/apt/sources.list.org
 COPY sources.list /etc/apt/
