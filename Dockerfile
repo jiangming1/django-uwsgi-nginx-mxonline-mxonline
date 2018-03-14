@@ -19,6 +19,9 @@ LABEL maintainer="w8833531 at hotmail.com"
 # ENV setting 
 ENV LANG=C.UTF-8  TZ=Asia/Shanghai
 
+# TZ setting
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 # Install required packages and remove the apt packages cache when done.
 RUN mv /etc/apt/sources.list /etc/apt/sources.list.org
 COPY sources.list /etc/apt/
