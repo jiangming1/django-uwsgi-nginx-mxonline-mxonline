@@ -20,7 +20,8 @@ LABEL maintainer="w8833531 at hotmail.com"
 ENV LANG=C.UTF-8  TZ=Asia/Shanghai
 
 # TZ setting
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+RUN apt-get -y install tzdata && \
+	ln -sf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # Install required packages and remove the apt packages cache when done.
 RUN mv /etc/apt/sources.list /etc/apt/sources.list.org
@@ -38,9 +39,12 @@ RUN apt-get update && \
     libssl-dev \
 	software-properties-common \
 	sqlite3 && \
+	tzdata && \
 	rm -rf /var/lib/apt/lists/*
+
 	 
-    
+# TZ setting
+RUN ln -sf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone    
 
 
 # setup all the configfiles
