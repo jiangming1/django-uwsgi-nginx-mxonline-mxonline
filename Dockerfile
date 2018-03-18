@@ -17,17 +17,15 @@ FROM ubuntu:16.04
 LABEL maintainer="w8833531 at hotmail.com"
 
 # ENV setting 
-ENV LANG=C.UTF-8  TZ=Asia/Shanghai
+ENV LANG=C.UTF-8  TZ=Asia/Shanghai DEBIAN_FRONTEND=noninteractive
 
-# TZ setting
-RUN apt-get -y install tzdata && \
-	ln -sf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # Install required packages and remove the apt packages cache when done.
 RUN mv /etc/apt/sources.list /etc/apt/sources.list.org
 COPY sources.list /etc/apt/
-RUN apt-get update && \
-    apt-get upgrade -y && \ 	
+RUN apt-get update
+RUN apt-get install -y tzdata
+RUN apt-get upgrade -y && \ 	
     apt-get install -y \
 	git \
 	nginx \
@@ -37,9 +35,9 @@ RUN apt-get update && \
 	inetutils-ping\
 	net-tools\
     libssl-dev \
+	curl \
 	software-properties-common \
 	sqlite3 && \
-	tzdata && \
 	rm -rf /var/lib/apt/lists/*
 
 	 
@@ -71,6 +69,10 @@ RUN cd /tmp && \
 	cd DjangoUeditor3 && \
 	python3.6 setup.py install && \
 	rm -rf /tmp/DjangoUeditor3
+
+# install nodejs 8.x
+RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - && \
+	apt-get install -y nodejs
 
 
 # install django, normally you would remove this step because your project would already
