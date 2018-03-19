@@ -33,7 +33,7 @@ DjangoUeditor (1.8.143)
    ``` 
 3. 运行Docker build 
     ```
-    docker build mxonline .
+    docker build -t mxonline .
     ```
 4. 运行Docker run
     ```
