@@ -70,9 +70,10 @@ RUN cd /tmp && \
 	python3.6 setup.py install && \
 	rm -rf /tmp/DjangoUeditor3
 
-# install nodejs 8.x
+# install nodejs 8.x & cnpm
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - && \
-	apt-get install -y nodejs
+	apt-get install -y nodejs && \
+	npm install -g cnpm --registry=https://registry.npm.taobao.org
 
 
 # install django, normally you would remove this step because your project would already
